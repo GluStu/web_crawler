@@ -86,7 +86,7 @@ async def crawler_json(site):
             try:
                 with open(filename, "w", encoding="utf-8") as f:
                     json.dump(metrics["data"], f, indent=2, ensure_ascii=False)
-                    f.flush()  #immediate disk writes
+                    f.flush()  #immediate disk writes incase of network failure further down the road
             except Exception as e:
                 print(f"\nError writing JSON file: {e}")
             await asyncio.sleep(1)  #update interval as per our performance (in seconds).
@@ -101,8 +101,8 @@ async def crawler_json(site):
     print(f"Data from {site} saved to {filename}")
 
 async def main():
-    sites = [] #sites you wanr to go through , seperated and inside ""
-    # sites = ["https://choosealicense.com/"] #test site befroe uploading actual sites toc heck for error
+    sites = [] #sites you want to go through , separated and inside ""
+    # sites = ["https://choosealicense.com/"] #test site befroe uploading actual sites to check for errors
     for site in sites:
         await crawler_json(site)
 
